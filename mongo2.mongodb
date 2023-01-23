@@ -1,0 +1,60 @@
+db.createCollection("cats", {
+    // validationLevel: strict | moderate
+    // validationAction: error | warn
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ['name', 'color', 'weight'],
+            properties: {
+                name: {
+                    bsonType: "string",
+                    description: "'name' must be a string and is required"
+                },
+                color: {
+                    bsonType: "string",
+                    description: "'color' must be a string and is required"
+                },
+                weight: {
+                    bsonType: "double",
+                    description: "'weight' must be a string and is required"
+                },
+                address: {
+                    bsonType: "object",
+                    required: ['city', 'street'],
+                    properties: {
+                        city: {
+                            bsonType: "string"
+                        },
+                        street: {
+                            bsonType: "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+});
+
+db.cats.insertOne({
+    name: 'Murzik',
+    color: 'brown',
+    weight: 11.1,
+    address: 'Dnipro'
+});
+
+
+/*
+ Створити колекцію юзерів та описати наступну валідацію:
+
+ Юзери
+ * firstName - string
+ * lastName - string, 
+ * birthday - date
+ address - object, 
+    * city,
+    street,
+    house
+ * email - string
+ * password - string
+
+*/
