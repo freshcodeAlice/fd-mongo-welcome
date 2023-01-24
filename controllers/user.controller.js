@@ -30,3 +30,26 @@ module.exports.getOne = async( req, res, next) => {
         next(error);
     }
 }
+
+
+module.exports.updateOne = async ( req, res, next) => {
+    try {
+        const {params: {userId}, body}= req;
+        const updtd = await User.findByIdAndUpdate(userId, body, {returnDocument: 'after'});
+        res.status(200).send(updtd);
+
+    } catch(error) {
+        next(error)
+    }
+}
+
+
+module.exports.deleteOne = async ( req, res, next) => {
+    try {
+        const {params: {userId}}= req;
+        const result = await User.findByIdAndDelete(userId);
+        res.status(204).send(result);
+    } catch(error) {
+        next(error);
+    }
+}
